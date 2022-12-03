@@ -31,14 +31,14 @@ function validateInput(testInput) {
 
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    console.log('formSubmission')
-    let window = document.window;
+   
+    // let window = document.window;
     let faultyItems = document.getElementById('faultyItems');
     let pilotStatus = document.getElementById('pilotStatus');
     let copilotStatus = document.getElementById('copilotStatus');
     let fuelStatus = document.getElementById('fuelStatus');
-
-    console.log('pilot', pilot.value);
+    
+    
     
 if (validateInput(pilot.value) === "Is a Number" || 
     validateInput(copilot.value) === "Is a Number" || 
@@ -46,20 +46,40 @@ if (validateInput(pilot.value) === "Is a Number" ||
     validateInput(cargoLevel.value) === "Not a Number") {
     alert("Invalid input");
 } else {
-    pilotStatus.innerHTML = `Pilot Name: ${pilot.value}`;
-    copilotStatus.innerHTML = `Co-pilot Name: ${copilot.value}`;
-    list.style.visibilty = 'visible !important';
-    console.log(list, list.style)
-}   if (fuelLevel < 10000) {
-    list.style.visibilty = 'visible';
+    pilotStatus.innerHTML = `Pilot ${pilot.value} is ready for launch`;
+    copilotStatus.innerHTML = `Co-pilot ${copilot.value} is ready for launch`;
+    faultyItems.style.visibility = 'visible';
+   
+}  if (fuelLevel.value < 10000) {
+     fuelStatus.innerHTML = 'Fuel level too low for launch';
+    // faultyItems.style.visibility = 'visible';
+     launchStatus.innerHTML = "Launch not ready for take off";
+     launchStatus.style.color = 'red';
+}
+   else if (cargoLevel.value > 10000) {
+        cargoStatus.innerHTML = 'Cargo mass too high for take off';
+        launchStatus.innerHTML = "Launch not ready for take off";
+        launchStatus.style.color = 'red';
+    }
+
+    else {
+        // faultyItems.style.visibility = 'visible';
+        fuelStatus.innerHTML = 'Fuel level high enough for launch'
+        launchStatus.innerHTML = "Launch ready for take off";
+        launchStatus.style.color = 'green';
 }
 };
+
 
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch().then( function(response) {
+    planetsReturned = await fetch('https://handlers.education.launchcode.org/static/planets.json').then( function(response) {
+            console.log(response);
+            return response.json();   
+        
         });
+      
 
     return planetsReturned;
 }
