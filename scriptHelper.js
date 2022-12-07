@@ -46,7 +46,7 @@ if (validateInput(pilot.value) === "Is a Number" ||
     validateInput(copilot.value) === "Is a Number" || 
     validateInput(fuelLevel.value) === "Not a Number" || 
     validateInput(cargoLevel.value) === "Not a Number") {
-    alert("Invalid input");
+    console.alert("Invalid input");
 } else {
     pilotStatus.innerHTML = `Pilot ${pilot.value} is ready for launch`;
     copilotStatus.innerHTML = `Co-pilot ${copilot.value} is ready for launch`;
